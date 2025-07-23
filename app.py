@@ -6,6 +6,11 @@ import shutil, os, smtplib
 from email.message import EmailMessage
 from email.utils import make_msgid
 import matplotlib.pyplot as plt
+import os
+
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
 
 app = FastAPI()
 app.add_middleware(
@@ -62,6 +67,8 @@ def send_email(to_email, result):
     """.strip()
 
     msg.add_alternative(html, subtype="html")
+    server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
 
     with open("temp.jpg", "rb") as f:
         msg.get_payload()[0].add_related(f.read(), "image", "jpeg", cid=photo_cid)
