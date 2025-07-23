@@ -86,3 +86,6 @@ async def analyze_image(file: UploadFile = File(...), email: str = Form(...)):
         return {"status": "success", "message": "Beautiful result sent to your email."}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+        if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app:app", host="0.0.0.0", port=10000)
